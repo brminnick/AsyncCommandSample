@@ -1,19 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Xamarin.CommunityToolkit.Helpers;
 
 namespace AsyncCommandSample
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
-        readonly DelegateWeakEventManager _propertyChangedEventManager = new();
-
-        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
-        {
-            add => _propertyChangedEventManager.AddEventHandler(value);
-            remove => _propertyChangedEventManager.RemoveEventHandler(value);
-        }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void SetProperty<T>(ref T backingStore, in T value, in System.Action? onChanged = null, [CallerMemberName] in string propertyname = "")
         {
@@ -27,7 +20,6 @@ namespace AsyncCommandSample
             OnPropertyChanged(propertyname);
         }
 
-        protected void OnPropertyChanged([CallerMemberName] in string propertyName = "") =>
-            _propertyChangedEventManager.RaiseEvent(this, new PropertyChangedEventArgs(propertyName), nameof(INotifyPropertyChanged.PropertyChanged));
+        protected void OnPropertyChanged([CallerMemberName] in string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Newtonsoft.Json;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Essentials;
 using Xamarin.Essentials.Interfaces;
+using Xamarin.Forms;
 
 namespace AsyncCommandSample
 {
@@ -19,22 +18,17 @@ namespace AsyncCommandSample
             BaseAddress = new Uri("https://api.github.com")
         };
 
-        readonly WeakEventManager<string> _getLatestReleaseFailedEventManager = new();
         readonly IPreferences _preferences;
 
         public XamarinCommunityToolkitInfoViewModel(IPreferences preferences)
         {
             _preferences = preferences;
-            GetLatestRelease = new AsyncCommand(ExecuteGetLatestRelease, allowsMultipleExecutions: false);
+            GetLatestRelease = new Command(async () => await ExecuteGetLatestRelease());
         }
 
-        public event EventHandler<string> GetLatestReleaseFailed
-        {
-            add => _getLatestReleaseFailedEventManager.AddEventHandler(value);
-            remove => _getLatestReleaseFailedEventManager.RemoveEventHandler(value);
-        }
+        public event EventHandler<string>? GetLatestReleaseFailed;
 
-        public IAsyncCommand GetLatestRelease { get; }
+        public ICommand GetLatestRelease { get; }
 
         public string? LatestRelease
         {
@@ -60,10 +54,8 @@ namespace AsyncCommandSample
             }
             catch (Exception e)
             {
-                OnGetLatestReleaseFailed(e.Message);
+                GetLatestReleaseFailed?.Invoke(this, e.Message);
             }
         }
-
-        void OnGetLatestReleaseFailed(string message) => _getLatestReleaseFailedEventManager.RaiseEvent(this, message, nameof(GetLatestReleaseFailed));
     }
 }
