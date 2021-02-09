@@ -35,6 +35,6 @@ namespace AsyncCommandSample
         }
 
         void HandleGetLatestReleaseFailed(object sender, string message) =>
-            _mainThread.BeginInvokeOnMainThread(() => DisplayAlert("Failed to Retrieve Latest Version", message, "OK"));
+            _mainThread.BeginInvokeOnMainThread(async () => await DisplayAlert("Failed to Retrieve Latest Version", message, "OK"));
     }
 }
