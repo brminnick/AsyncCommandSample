@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.CommunityToolkit.Helpers;
@@ -50,7 +51,7 @@ namespace AsyncCommandSample
             {
                 BaseAddress = new Uri("https://api.github.com")
             };
-            client.DefaultRequestHeaders.UserAgent.Add(new System.Net.Http.Headers.ProductInfoHeaderValue(nameof(AsyncCommandSample)));
+            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue(nameof(AsyncCommandSample))));
 
             return client;
         }
