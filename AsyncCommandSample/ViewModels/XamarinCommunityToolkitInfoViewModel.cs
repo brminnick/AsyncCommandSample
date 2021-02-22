@@ -12,10 +12,7 @@ namespace AsyncCommandSample
 {
     public class XamarinCommunityToolkitInfoViewModel : BaseViewModel
     {
-        readonly static HttpClient _gitHubClient = new()
-        {
-            BaseAddress = new Uri("https://api.github.com")
-        };
+        readonly static HttpClient _gitHubClient = CreateHttpClient();
 
         readonly WeakEventManager<string> _getLatestReleaseFailedEventManager = new();
         readonly IPreferences _preferences;
@@ -45,6 +42,17 @@ namespace AsyncCommandSample
                     OnPropertyChanged();
                 }
             }
+        }
+
+        static HttpClient CreateHttpClient()
+        {
+            var client = new HttpClient()
+            {
+                BaseAddress = new Uri("https://api.github.com")
+            };
+            client.DefaultRequestHeaders.UserAgent.Add(new System.Net.Http.Headers.ProductInfoHeaderValue(nameof(AsyncCommandSample)));
+
+            return client;
         }
 
         async Task ExecuteGetLatestRelease()
