@@ -1,5 +1,5 @@
 # AsyncCommandSample
-An iOS + Android app built in Xamarin.Forms demononstrating Xamarin.CommunityToolkit AsyncCommand
+An iOS + Android app built in Xamarin.Forms demonstrating Xamarin.CommunityToolkit AsyncCommand
 
 ### Learn More
 - [Xamarin.CommunityToolkit](https://docs.microsoft.com/xamarin/community-toolkit/?WT.mc_id=mobile-15661-bramin)
