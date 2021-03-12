@@ -60,7 +60,7 @@ namespace AsyncCommandSample
         {
             try
             {
-                var releasesJson = await _gitHubClient.GetStringAsync("/repos/xamarin/XamarinCommunityToolkit/releases");
+                var releasesJson = await _gitHubClient.GetStringAsync("/repos/xamarin/XamarinCommunityToolkit/releases").ConfigureAwait(false);
                 var releases = JsonConvert.DeserializeObject<IReadOnlyList<GitHubReleasesModel>>(releasesJson);
 
                 LatestRelease = releases.First().Tag_Name;

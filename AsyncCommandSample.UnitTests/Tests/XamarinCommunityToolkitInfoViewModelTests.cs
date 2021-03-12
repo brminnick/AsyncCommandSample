@@ -16,7 +16,7 @@ namespace AsyncCommandSample.UnitTests
             // Act
             latestRelease_Initial = xamarinCommunityToolkitInfoViewModel.LatestRelease;
 
-            await xamarinCommunityToolkitInfoViewModel.GetLatestRelease.ExecuteAsync();
+            await xamarinCommunityToolkitInfoViewModel.GetLatestRelease.ExecuteAsync().ConfigureAwait(false);
 
             latestRelease_Final = xamarinCommunityToolkitInfoViewModel.LatestRelease;
 
