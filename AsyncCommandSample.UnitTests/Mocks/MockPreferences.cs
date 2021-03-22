@@ -76,7 +76,6 @@ namespace AsyncCommandSample.UnitTests
 
         public void Set(string key, long value, string sharedName) => throw new NotImplementedException();
 
-
         public void Set(string key, DateTime value, string sharedName) => throw new NotImplementedException();
 
         T? Get<T>(string key, T defaultValue)
