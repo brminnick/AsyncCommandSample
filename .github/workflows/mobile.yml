@@ -48,7 +48,6 @@ jobs:
       steps:
       - uses: actions/checkout@v1
 
-      steps:
       - name: Run Unit Tests
         run: |   
           UnitTestProject=`find . -name AsyncCommandSample.UnitTests.csproj`
