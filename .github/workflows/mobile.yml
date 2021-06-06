@@ -33,7 +33,7 @@ jobs:
       steps:
       - name: Build Android App
         run: |           
-          echo Current Directory: $(pwd)
+          echo Current Directory: $(pwd) $PWD
 
           mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll ./AsyncCommandSample.Android/AsyncCommandSample.Android.csproj /verbosity:normal /p:Configuration=Release     
           
@@ -49,7 +49,7 @@ jobs:
       steps:
       - name: Run Unit Tests
         run: |   
-          echo Current Directory: $(pwd)
+          echo Current Directory: $(pwd) $PWD
 
           UnitTestProject=`find . -name AsyncCommandSample.UnitTests.csproj`
           echo $UnitTestProject
