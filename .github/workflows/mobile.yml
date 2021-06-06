@@ -31,16 +31,14 @@ jobs:
       needs: Setup
 
       steps:
-      - name: Build Android App
-        run: |           
-          echo Current Directory: $(pwd)
-          ech ls: $(ls -a)
+      - uses: actions/checkout@v1
 
-          mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll ../AsyncCommandSample.Android/AsyncCommandSample.Android.csproj /verbosity:normal /p:Configuration=Release     
-          
-      # - name: Build iOS App
-      #   run: |                    
-      #     mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll ./GitTrends.iOS/GitTrends.iOS.csproj /verbosity:normal /p:Configuration=Debug /p:Platform=iPhoneSimulator
+      - name: Build Android App
+        run: |        
+          AndroidProject=`find . -name AsyncCommandSample.Android.csproj`
+          echo $AndroidProject   
+
+          mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll $AndroidProject /verbosity:normal /p:Configuration=Release     
   
     RunUnitTests:
       runs-on: macos-latest
@@ -48,12 +46,12 @@ jobs:
       needs: Setup
 
       steps:
+      - uses: actions/checkout@v1
+
+      steps:
       - name: Run Unit Tests
         run: |   
-          echo Current Directory: $(pwd)
-          ech ls: $(ls -a)
-
-          UnitTestProject=`find .. -name AsyncCommandSample.UnitTests.csproj`
+          UnitTestProject=`find . -name AsyncCommandSample.UnitTests.csproj`
           echo $UnitTestProject
           
           dotnet test  -c Release $UnitTestProject
