@@ -20,29 +20,34 @@ jobs:
         with:
           dotnet-version: '6.0.x'
           include-prerelease: true
-      
-      - name: Restore NuGet 
-        run: |
-          nuget restore
     
     BuildAndroidApp:
       runs-on: macos-latest
 
       needs: Setup
-          
+
+      steps:
+      - uses: actions/checkout@v1
+
+      - name: Restore NuGet 
+        run: |
+          nuget restore
+
       - name: Build Android App
-        run: |                    
-          mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll ./AsyncCommandSample.Android/AsyncCommandSample.Android.csproj /verbosity:normal /p:Configuration=Release     
-          
-      # - name: Build iOS App
-      #   run: |                    
-      #     mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll ./GitTrends.iOS/GitTrends.iOS.csproj /verbosity:normal /p:Configuration=Debug /p:Platform=iPhoneSimulator
+        run: |        
+          AndroidProject=`find . -name AsyncCommandSample.Android.csproj`
+          echo $AndroidProject   
+
+          mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll $AndroidProject /verbosity:normal /p:Configuration=Release     
   
-    UnitTest_GitTrends:
+    RunUnitTests:
       runs-on: macos-latest
 
       needs: Setup
-          
+
+      steps:
+      - uses: actions/checkout@v1
+
       - name: Run Unit Tests
         run: |   
           UnitTestProject=`find . -name AsyncCommandSample.UnitTests.csproj`
