@@ -29,7 +29,8 @@ jobs:
       runs-on: macos-latest
 
       needs: Setup
-          
+
+      steps:
       - name: Build Android App
         run: |                    
           mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll ./AsyncCommandSample.Android/AsyncCommandSample.Android.csproj /verbosity:normal /p:Configuration=Release     
@@ -42,7 +43,8 @@ jobs:
       runs-on: macos-latest
 
       needs: Setup
-          
+
+      steps:
       - name: Run Unit Tests
         run: |   
           UnitTestProject=`find . -name AsyncCommandSample.UnitTests.csproj`
