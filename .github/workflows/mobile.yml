@@ -32,14 +32,16 @@ jobs:
 
       steps:
       - name: Build Android App
-        run: |                    
+        run: |           
+          echo Current Directory: $(pwd)
+
           mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll ./AsyncCommandSample.Android/AsyncCommandSample.Android.csproj /verbosity:normal /p:Configuration=Release     
           
       # - name: Build iOS App
       #   run: |                    
       #     mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll ./GitTrends.iOS/GitTrends.iOS.csproj /verbosity:normal /p:Configuration=Debug /p:Platform=iPhoneSimulator
   
-    UnitTest_GitTrends:
+    RunUnitTests:
       runs-on: macos-latest
 
       needs: Setup
@@ -47,6 +49,8 @@ jobs:
       steps:
       - name: Run Unit Tests
         run: |   
+          echo Current Directory: $(pwd)
+
           UnitTestProject=`find . -name AsyncCommandSample.UnitTests.csproj`
           echo $UnitTestProject
           
