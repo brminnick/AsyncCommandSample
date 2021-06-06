@@ -1,3 +1,5 @@
+[![Xamarin](https://github.com/brminnick/AsyncCommandSample/actions/workflows/mobile.yml/badge.svg)](https://github.com/brminnick/AsyncCommandSample/actions/workflows/mobile.yml)
+
 # AsyncCommandSample
 An iOS + Android app built in Xamarin.Forms demonstrating Xamarin.CommunityToolkit AsyncCommand
 
