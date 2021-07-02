@@ -37,7 +37,7 @@ namespace AsyncCommandSample
             get => _preferences.Get(nameof(LatestRelease), null);
             set
             {
-                if (value is not null)
+                if (value is not null && !value.Equals(LatestRelease))
                 {
                     _preferences.Set(nameof(LatestRelease), value);
                     OnPropertyChanged();
