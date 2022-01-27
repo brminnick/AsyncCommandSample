@@ -123,8 +123,8 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
-    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.3.2" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Xamarin.Essentials.Interfaces" Version="1.7.0" />
   </ItemGroup>
@@ -133,6 +133,7 @@
     <ProjectReference Include="..\AsyncCommandSample\AsyncCommandSample.csproj">
       <Project>{F9376E21-41E5-4015-981B-A7C9A4FA41F8}</Project>
       <Name>AsyncCommandSample</Name>
+      <ReferenceSourceTarget></ReferenceSourceTarget>
     </ProjectReference>
   </ItemGroup>
 </Project>
