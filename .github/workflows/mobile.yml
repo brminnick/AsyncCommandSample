@@ -8,8 +8,8 @@ on:
     branches: 
       - "*"
 
-jobs:
-    Setup:
+jobs:    
+    BuildAndroidApp:
       runs-on: macos-latest
 
       steps:
@@ -19,15 +19,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '6.0.x'
-          include-prerelease: true
-    
-    BuildAndroidApp:
-      runs-on: macos-latest
-
-      needs: Setup
-
-      steps:
-      - uses: actions/checkout@v1
 
       - name: Restore NuGet 
         run: |
@@ -38,15 +29,18 @@ jobs:
           AndroidProject=`find . -name AsyncCommandSample.Android.csproj`
           echo $AndroidProject   
 
-          mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll $AndroidProject /verbosity:normal /p:Configuration=Release     
+          msbuild $AndroidProject /verbosity:normal /p:Configuration=Release     
   
     RunUnitTests:
       runs-on: macos-latest
 
-      needs: Setup
-
       steps:
       - uses: actions/checkout@v1
+      
+      - name: Setup .NET v6.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
 
       - name: Run Unit Tests
         run: |   
