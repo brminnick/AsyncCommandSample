@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
@@ -11,7 +12,10 @@ namespace AsyncCommandSample.UnitTests
             // Arrange
             string? latestRelease_Initial, latestRelease_Final;
 
+            var getLatestReleaseFailedTCS = new TaskCompletionSource<string>();
+
             var xamarinCommunityToolkitInfoViewModel = new XamarinCommunityToolkitInfoViewModel(new MockPreferences());
+            xamarinCommunityToolkitInfoViewModel.GetLatestReleaseFailed += HandleGetLatestReleaseFailed;
 
             // Act
             latestRelease_Initial = xamarinCommunityToolkitInfoViewModel.LatestRelease;
@@ -22,7 +26,13 @@ namespace AsyncCommandSample.UnitTests
 
             // Assert
             Assert.IsNull(latestRelease_Initial);
-            Assert.IsNotNull(latestRelease_Final);
+            Assert.IsNotNull(latestRelease_Final, latestRelease_Final is null ? await getLatestReleaseFailedTCS.Task.ConfigureAwait(false) : null);
+
+            void HandleGetLatestReleaseFailed(object? sender, string e)
+            {
+                getLatestReleaseFailedTCS.SetResult(e);
+            }
         }
+
     }
 }
