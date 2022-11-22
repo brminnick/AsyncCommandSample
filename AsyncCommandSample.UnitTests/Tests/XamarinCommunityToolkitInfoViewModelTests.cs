@@ -22,11 +22,11 @@ namespace AsyncCommandSample.UnitTests
 
             await xamarinCommunityToolkitInfoViewModel.GetLatestRelease.ExecuteAsync().ConfigureAwait(false);
 
-            latestRelease_Final = xamarinCommunityToolkitInfoViewModel.LatestRelease;
+            latestRelease_Final = xamarinCommunityToolkitInfoViewModel.LatestRelease ?? await getLatestReleaseFailedTCS.Task.ConfigureAwait(false);
 
             // Assert
             Assert.IsNull(latestRelease_Initial);
-            Assert.IsNotNull(latestRelease_Final, latestRelease_Final is null ? await getLatestReleaseFailedTCS.Task.ConfigureAwait(false) : null);
+            Assert.IsNotNull(latestRelease_Final, latestRelease_Final );
 
             void HandleGetLatestReleaseFailed(object? sender, string e)
             {
