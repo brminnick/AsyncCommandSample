@@ -23,9 +23,13 @@ jobs:
       - name: Restore NuGet 
         run: |
           AndroidProject=`find . -name AsyncCommandSample.Android.csproj`
-          echo $AndroidProject   
+          echo $AndroidProject
+
+          XamarinFormsProject=`find . -name AsyncCommandSample.csproj`
+          echo $XamarinFormsProject  
 
           nuget restore $AndroidProject
+          nuget restore $XamarinFormsProject
 
       - name: Build Android App
         run: |        
