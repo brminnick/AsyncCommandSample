@@ -20,6 +20,13 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Restore NuGet 
+        run: |
+          AndroidProject=`find . -name AsyncCommandSample.Android.csproj`
+          echo $AndroidProject   
+
+          nuget restore $AndroidProject
+
       - name: Build Android App
         run: |        
           AndroidProject=`find . -name AsyncCommandSample.Android.csproj`
