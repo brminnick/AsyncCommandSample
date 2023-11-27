@@ -15,14 +15,21 @@ jobs:
       steps:
       - uses: actions/checkout@v1
         
-      - name: Setup .NET v6.0
+      - name: Setup .NET v8.0
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: '8.0.x'
 
       - name: Restore NuGet 
         run: |
-          nuget restore
+          AndroidProject=`find . -name AsyncCommandSample.Android.csproj`
+          echo $AndroidProject
+
+          XamarinFormsProject=`find . -name AsyncCommandSample.csproj`
+          echo $XamarinFormsProject  
+
+          nuget restore $AndroidProject
+          nuget restore $XamarinFormsProject
 
       - name: Build Android App
         run: |        
@@ -32,21 +39,15 @@ jobs:
           msbuild $AndroidProject /verbosity:normal /p:Configuration=Release     
   
     RunUnitTests:
-      runs-on: macos-latest
+      runs-on: windows-latest
 
       steps:
       - uses: actions/checkout@v3
       
-      - name: Setup .NET v3.1 + v7.0
+      - name: Setup v8.0
         uses: actions/setup-dotnet@v3
         with:
-            dotnet-version: | 
-              3.1.x
-              7.0.x
+            dotnet-version: '8.0.x'
 
       - name: Run Unit Tests
-        run: |   
-          UnitTestProject=`find . -name AsyncCommandSample.UnitTests.csproj`
-          echo $UnitTestProject
-          
-          dotnet test  -c Release $UnitTestProject
+        run: 'dotnet test  -c Release AsyncCommandSample.UnitTests/AsyncCommandSample.UnitTests.csproj'

@@ -25,8 +25,11 @@ namespace AsyncCommandSample.UnitTests
             latestRelease_Final = xamarinCommunityToolkitInfoViewModel.LatestRelease ?? await getLatestReleaseFailedTCS.Task.ConfigureAwait(false);
 
             // Assert
-            Assert.IsNull(latestRelease_Initial);
-            Assert.IsNotNull(latestRelease_Final, latestRelease_Final );
+            Assert.Multiple(() => 
+            {
+                Assert.That(latestRelease_Initial, Is.Not.Null);
+                Assert.That(latestRelease_Final, Is.Not.Null);
+            });
 
             void HandleGetLatestReleaseFailed(object? sender, string e)
             {
