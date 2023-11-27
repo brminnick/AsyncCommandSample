@@ -20,10 +20,6 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Restore NuGet 
-        run: |
-          nuget restore
-
       - name: Build Android App
         run: |        
           AndroidProject=`find . -name AsyncCommandSample.Android.csproj`
@@ -43,8 +39,4 @@ jobs:
             dotnet-version: '8.0.x'
 
       - name: Run Unit Tests
-        run: |   
-          UnitTestProject=`find . -name AsyncCommandSample.UnitTests.csproj`
-          echo $UnitTestProject
-          
-          dotnet test  -c Release $UnitTestProject
+        run: 'dotnet test  -c Release AsyncCommandSample.UnitTests/AsyncCommandSample.UnitTests.csproj'
